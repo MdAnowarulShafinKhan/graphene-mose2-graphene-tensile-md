@@ -73,6 +73,16 @@ The layers do not fail simultaneously. Under armchair loading, graphene initiate
 
 ![Temperature-dependent stress-strain response](figures/temperature_stress_strain.png)
 
+## Representative Fracture Evolution
+
+### Armchair Loading — SW Potential
+
+![Armchair fracture evolution](figures/fracture_armchair_SW.png)
+
+### Zigzag Loading — SW Potential
+
+![Zigzag fracture evolution](figures/fracture_zigzag_SW.png)
+
 ## Selected results
 
 Room-temperature values are summarized in [`results/room_temperature_summary.csv`](results/room_temperature_summary.csv).
