@@ -1,174 +1,106 @@
-# graphene-mose2-graphene-tensile-md
-# Layer-Resolved Tensile Failure of Graphene/MoSe₂/Graphene Trilayers
+# Layer-Resolved Tensile Failure of Graphene/MoSe2/Graphene Trilayers
 
-Molecular dynamics investigation of the mechanical response and fracture
-behavior of graphene/MoSe₂/graphene (GMG) van der Waals heterostructures.
+Molecular-dynamics study of tensile deformation, load sharing, and layer-resolved fracture in graphene/MoSe2/graphene (GMG) van der Waals trilayers.
 
-## Overview
+> **Status:** Manuscript under review. This repository is a curated research-portfolio version containing representative simulation inputs, 300 K stress-strain data, analysis scripts, and selected figures. Full research data are available on request.
 
-This project studies how graphene and MoSe₂ layers share mechanical load
-and fail under uniaxial tensile deformation.
+![Graphical abstract](figures/graphical_abstract.png)
 
-The simulations investigate:
+## What this project studies
 
-- Armchair and zigzag tensile loading
-- Temperatures from 100 to 600 K
-- Young's modulus
-- Ultimate tensile stress
-- Fracture strain
-- Modulus of resilience
-- Modulus of toughness
-- Layer-resolved fracture
-- Temperature-dependent fracture sequence
-- Sensitivity to different MoSe₂ interatomic potentials
+- Armchair and zigzag uniaxial tensile loading
+- Temperature range: 100-600 K
+- Young's modulus, ultimate tensile stress, and fracture strain
+- Modulus of resilience and modulus of toughness
+- Layer-by-layer fracture and post-peak load sharing
+- Sensitivity of the results to two MoSe2 force fields: Stillinger-Weber and Tersoff
+- Comparison with rule-of-mixtures predictions and literature benchmarks
 
-## Simulation Model
+## Simulation model
 
-- System: Graphene/MoSe₂/Graphene trilayer
-- Total atoms: 43,264
-- Approximate dimensions: 18.43 × 21.28 nm
-- Maximum lattice mismatch: ~0.11%
-- Boundary conditions: periodic in-plane, free out-of-plane
+- **System:** graphene/MoSe2/graphene trilayer
+- **Total atoms:** 43,264
+- **Approximate in-plane dimensions:** 18.43 nm x 21.28 nm
+- **Maximum lattice mismatch:** ~0.11%
+- **Boundary conditions:** periodic in-plane, free out-of-plane
+- **MD code:** LAMMPS
+- **Visualization:** OVITO
+- **Structure construction:** Atomsk
+- **Time step:** 0.5 fs
+- **Engineering strain rate:** 1 x 10^8 s^-1
 
-## Molecular Dynamics Method
+![GMG atomic model](figures/gmg_atomic_model.png)
 
-**MD code:** LAMMPS  
-**Visualization:** OVITO  
-**Structure construction:** Atomsk  
+![GMG simulation cell](figures/gmg_simulation_cell.png)
 
-### Interatomic interactions
+## Interatomic interactions
 
 - Graphene: AIREBO
-- MoSe₂: Stillinger-Weber (SW) and Tersoff
-- Graphene–MoSe₂ interface: 12-6 Lennard-Jones interaction
+- MoSe2: Stillinger-Weber (SW) or Tersoff in separate simulation sets
+- Graphene-MoSe2 interface: 12-6 Lennard-Jones interaction
 
-Two independent MoSe₂ potentials were used to test whether the observed
-mechanical and fracture behavior depends strongly on the chosen force field.
+Potential parameter files are not redistributed here. See [`POTENTIALS.md`](POTENTIALS.md).
 
-### Tensile simulation
+## Representative 300 K simulation files
 
-- Energy minimization
-- 50 ps NVE equilibration
-- 100 ps NPT equilibration
-- Time step: 0.5 fs
-- Engineering strain rate: 1 × 10⁸ s⁻¹
-- Temperature range: 100–600 K
-- Loading directions: armchair and zigzag
+Four representative cases are included under `simulation_examples/`:
 
-Stress was calculated using the virial stress formulation and used to
-construct stress–strain curves.
+- SW - armchair
+- SW - zigzag
+- Tersoff - armchair
+- Tersoff - zigzag
 
-## Model Validation
+Each case contains the original LAMMPS input, the corresponding GMG structure file, and the generated `strain.dat` used for stress-strain analysis.
 
-The simulation methodology was checked at multiple levels:
+## Analysis scripts
 
-1. Mechanical properties of monolayer graphene were compared with literature.
-2. Mechanical properties of monolayer MoSe₂ were compared with literature.
-3. A graphene/WS₂/graphene trilayer was reconstructed and compared with a
-   published benchmark study.
-4. Rule-of-mixtures predictions were compared with the MD results.
+The `analysis/` directory contains representative Python scripts used for:
 
-The benchmark trilayer calculations showed deviations below approximately
-4.1% for the investigated mechanical properties.
+- stress-strain conversion and plotting
+- Young's modulus, UTS, and fracture-strain extraction
+- modulus of toughness
+- modulus of resilience
 
-## Main Findings
+Python dependencies are listed in `requirements.txt`.
 
-### Graphene strongly reinforces MoSe₂
+## Main findings
 
-At 300 K, graphene encapsulation increases the Young's modulus of MoSe₂ by
-approximately 3.7–3.8× and the ultimate tensile stress by approximately
-3.1–3.4×.
+At 300 K, graphene encapsulation raises the Young's modulus of monolayer MoSe2 by about **3.7-3.8x** and the ultimate tensile stress by about **3.1-3.4x**.
 
-### Mechanical response depends on loading direction
+Armchair loading favors stiffness and recoverable elastic energy, while zigzag loading favors peak strength, fracture strain, and toughness.
 
-**Armchair loading**
-- Higher stiffness
-- Higher recoverable elastic energy
+The layers do not fail simultaneously. Under armchair loading, graphene initiates fracture over 100-600 K. Under zigzag loading, the first-fractured layer changes from graphene at 100 K to MoSe2 from 200 K onward. The same qualitative fracture sequence is obtained with both SW and Tersoff descriptions of MoSe2.
 
-**Zigzag loading**
-- Higher ultimate tensile strength
-- Higher fracture strain
-- Higher toughness
+![Temperature-dependent stress-strain response](figures/temperature_stress_strain.png)
 
-### Failure occurs layer by layer
+## Selected results
 
-The three layers do not fail simultaneously.
+Room-temperature values are summarized in [`results/room_temperature_summary.csv`](results/room_temperature_summary.csv).
 
-After one layer fractures, the remaining layers can continue carrying load,
-producing step-like post-peak behavior in the stress–strain curves.
+![Young's modulus vs temperature](figures/youngs_modulus_vs_temperature.png)
 
-### Temperature changes which layer fails first
+![MD vs rule-of-mixtures Young's modulus](figures/youngs_modulus_md_vs_rom.png)
 
-Under armchair loading:
+![Rule-of-mixtures deviation](figures/youngs_modulus_rom_deviation.png)
 
-**Graphene fails first from 100–600 K.**
+![Ultimate tensile stress vs temperature](figures/uts_vs_temperature.png)
 
-Under zigzag loading:
+## Skills demonstrated
 
-- 100 K → graphene fails first
-- 200–600 K → MoSe₂ fails first
-
-This fracture-sequence crossover was reproduced using both SW and Tersoff
-potentials.
-
-The results therefore indicate that the tensile reliability of the trilayer
-is controlled by **first-layer instability**, rather than simply by the
-strength of the individual materials.
-
-## Skills Demonstrated
-
-This project demonstrates experience with:
-
-- Molecular dynamics
-- LAMMPS
+- Molecular dynamics with LAMMPS
 - Uniaxial deformation using `fix deform`
-- Stress–strain analysis
-- Atomistic fracture analysis
-- Virial stress calculation
-- Mechanical property extraction
-- Interatomic potential selection
-- Force-field sensitivity analysis
-- Model validation
-- van der Waals heterostructures
+- Atomistic stress and fracture analysis
+- Stress-strain post-processing with Python
+- Mechanical-property extraction
+- Interatomic-potential comparison
+- Model validation and benchmark reconstruction
+- van der Waals heterostructure modeling
 - OVITO visualization
 - Atomsk structure construction
-- Scientific data analysis
 
-## Limitations
+## My contribution
 
-The simulations represent idealized pristine atomistic systems.
-
-Important limitations include:
-
-- MD-accessible strain rates are much higher than experimental rates.
-- The simulation cells are finite.
-- Defects and polycrystalline structures are not considered.
-- The adopted interlayer interaction is non-reactive.
-
-Future work can extend the model to defects, grain boundaries, ripples,
-different strain rates, and experimentally realistic structures.
-
-## My Contribution
-
-**Md. Anowarul Shafin Khan**
-
-Contributions include:
-
-- Conceptualization
-- Methodology
-- Investigation
-- Formal analysis
-- Validation
-- Resources
-- Writing – original draft
-
-## Project Status
-
-**Manuscript under review.**
-
-This repository is being prepared as a research and reproducibility portfolio.
-Selected simulation inputs, analysis workflows, representative results, and
-visualizations will be added progressively.
+**Md. Anowarul Shafin Khan:** Conceptualization, methodology, investigation, formal analysis, validation, resources, and writing - original draft.
 
 ## Authors
 
@@ -176,11 +108,10 @@ visualizations will be added progressively.
 - Md. Jobayer Aziz
 - Md. Rezwanul Karim
 
-## Data Availability
+## Data availability
 
-Research data are available on reasonable request.
+Full research data are available on reasonable request.
 
 ## Citation
 
-The manuscript is currently under review. Citation information will be updated
-after publication.
+The manuscript is currently under review. Citation information will be updated after publication.

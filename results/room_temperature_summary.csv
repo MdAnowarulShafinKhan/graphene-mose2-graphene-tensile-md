@@ -1,0 +1,5 @@
+potential,loading_direction,youngs_modulus_GPa,ultimate_tensile_stress_GPa,fracture_strain_percent
+Stillinger-Weber,Armchair,566.94,54.02,13.40
+Stillinger-Weber,Zigzag,536.01,59.46,17.29
+Tersoff,Armchair,566.37,53.75,13.11
+Tersoff,Zigzag,534.70,60.72,17.77
