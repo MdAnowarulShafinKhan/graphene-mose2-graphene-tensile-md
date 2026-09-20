@@ -108,7 +108,7 @@ Room-temperature values are summarized in [`results/room_temperature_summary.csv
 - OVITO visualization
 - Atomsk structure construction
 
-## My contribution
+## Contribution
 
 **Md. Anowarul Shafin Khan:** Conceptualization, methodology, investigation, formal analysis, validation, resources, and writing - original draft.
 **Md Jobayer Aziz:** Writing - original draft, visualization, investigation, conceptualization, software.
